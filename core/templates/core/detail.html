@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %} Movie Listings {% endblock %}
+<!--{% include '_header.html' %}-->
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <article class="blog-post">
+                <h2 class="blog-post-title">{{ object.title }}</h2>
+                <p class="blog-post-meta"> {{ object.year }} by
+                            {% for actor in object.actor.all %}
+                               <a href="{% url 'core:person_detail' actor.id %}">{{ actor }}</a>
+                            {% endfor %}
+                        </p>
+                <p>{{ object.plot }}</p>
+                <ul>
+                    <li><b>Acted by</b>
+                         <ul>
+                            {% for actor in object.actor.all %}
+                            <ol>
+                                {{ actor }}
+                            </ol>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><b>Written by</b>
+                        <ul>
+                            {% for writer in object.writer.all %}
+                            <ol>
+                                {{ writer }}
+                            </ol>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><b>Directed by</b> {{ object.director }}</li>
+                </ul>
+                <div>
+                    <h4>Score {{ object.score|default_if_none:"TBD" }}</h4>
+                    {% if vote_form %}
+                    <form method="post" action="{{ vote_form_url }}">
+                        {{ vote_form.as_p }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Vote</button>
+                    </form>
+                    {% else %}
+                    <p>Login to vote for this movie</p>
+                    {% endif %}
+                </div>
+            </article>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

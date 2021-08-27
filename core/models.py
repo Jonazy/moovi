@@ -2,7 +2,12 @@ from django.db import models
 from core.managers import (
     PersonManager,
     MovieManager,
+    # VoteManager,
                            )
+from users.models import CustomUser
+from uuid import uuid4
+from django.conf import settings
+
 # Create your models here.
 
 
@@ -67,3 +72,48 @@ class Role(models.Model):
 
     class Meta:
         unique_together = ('movie', 'person', 'name')
+
+
+class VoteManager(models.Manager):
+    def get_vote_or_unsaved_blank_true(self, movie, user):
+        try:
+            return Vote.objects.get(
+                movie=movie,
+                user=user
+            )
+        except Vote.DoesNotExist:
+            return Vote(
+                movie=movie,
+                user=user
+            )
+
+
+class Vote(models.Model):
+    UP = 1
+    DOWN = -1
+    VALUE_CHOICES = (
+        ('UP', 'UP'),
+        ('UP', 'DOWN'),
+    )
+    value = models.SmallIntegerField(choices=VALUE_CHOICES)
+    user = models.ForeignKey(to=CustomUser, related_name='user', on_delete=models.CASCADE)
+    movie = models.ForeignKey(to=Movie, related_name='movie', on_delete=models.CASCADE)
+    voted_on = models.DateField(auto_now=True)
+
+    objects = VoteManager()
+
+    class Meta:
+        unique_together = ('user', 'movie')
+
+
+def movie_directory_path_with_uuid(instance, filename):
+    return '{}/{}'.format(
+        instance.movie_id, uuid4()
+    )
+
+
+class MovieImage(models.Model):
+    image = models.ImageField(upload_to=movie_directory_path_with_uuid)
+    uploaded = models.DateTimeField(auto_now_add=True)
+    movie = models.ForeignKey(to=Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)

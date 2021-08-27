@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -32,6 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #  written apps
+    'core',
+    'users',
+
     #  django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,9 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #  written apps
-    'core',
-    'users',
     #  third party app
     'crispy_forms',
 ]
@@ -88,13 +89,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'HOST': config('DB_HOST'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'PORT': 5432,
     }
 }
+
+CSRF_USE_SESSIONS = True
 
 
 # Password validation
@@ -140,4 +138,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = 'user:login'
+
 LOGIN_REDIRECT_URL = 'core:movie_list'
+# LOGOUT_REDIRECT_URL = 'user:login'

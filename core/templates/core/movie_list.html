@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %} Movie Listings {% endblock %}
+
+<!--{% include '_header.html' %}-->
+{% block main %}
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-9">
+
+        <div class="container px-4 py-5" id="custom-cards">
+<!--    <h2 class="pb-2 border-bottom">All Movies</h2>-->
+<!--  <div class="row">-->
+<!--    <div class="col-sm-8 offset-2">-->
+<!--      <div class="input-group mb-3">-->
+<!--        <input type="text" class="form-control" placeholder="Search movie" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
+<!--        <span class="input-group-text" id="basic-addon2">-->
+<!--          <a class="link-secondary" href="#" aria-label="Search">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24">-->
+<!--              <title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/>-->
+<!--            </svg>-->
+<!--          </a>-->
+<!--        </span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+      {% for movie in movies %}
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><a class="text-white" style="text-decoration: None" href="{% url 'core:movie_detail' movie.id %}">{{ movie.title }} ({{ movie.year}})</a></h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="d-flex align-items-center me-3">
+                <small><b>Run Time</b>: {{ movie.run_time}}</small>
+              </li>
+              <li class="d-flex align-items-center">
+                <small><b>Rating</b>: <span class="badge bg-secondary">{{ movie.get_rating_display }}</span></small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div>
+        <h4>No movies</h4>
+      </div>
+    {% endfor %}
+    </div>
+    <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary" href="#">Previous</a>
+        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Next</a>
+      </nav>
+  </div>
+
+<!--  <div class="b-example-divider"></div>-->
+
+<!--  <div class="container px-4 py-5" id="icon-grid">-->
+<!--    <h2 class="pb-2 border-bottom">Icon grid</h2>-->
+
+<!--    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col d-flex align-items-start">-->
+<!--        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"/></svg>-->
+<!--        <div>-->
+<!--          <h4 class="fw-bold mb-0">Featured title</h4>-->
+<!--          <p>Paragraph of text beneath the heading to explain the heading.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  </div>
+      <div class="col-md-3">
+       <div class="container px-4 py-5">
+         <h4 class="mt-5 text-center">Top 10 Movies</h4>
+       </div>
+      </div>
+  </div>
+  </div>
+</main>
+{% endblock %}

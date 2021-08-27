@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Person Detail {% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <h1>{{ object }}</h1>
+            <h2>Acted</h2>
+            {% for role in object.role_set.all %}
+                <a href="{% url 'core:movie_detail' role.movie.id %} ">{{ role.movie }}</a>:{{role.name}}
+            {% endfor %}
+
+         <h2>Written of</h2>
+            {% for movie in object.writing_credits.all %}
+                <a href="{% url 'core:movie_detail' movie.id %} ">{{ movie }}</a>
+            {% endfor %}
+
+        <h2>Directed</h2>
+            {% for movie in object.directed.all %}
+                <a href="{% url 'core:movie_detail' movie.id %} ">{{ movie }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
