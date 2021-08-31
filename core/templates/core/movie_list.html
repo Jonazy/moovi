@@ -49,10 +49,28 @@
       </div>
     {% endfor %}
     </div>
+
     <nav class="blog-pagination" aria-label="Pagination">
-        <a class="btn btn-outline-primary" href="#">Previous</a>
-        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Next</a>
-      </nav>
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% else %}
+                <a class="btn btn-outline-primary" href="#" tabindex="-1" disabled aria-disabled="true">Previous</a>
+            {% endif %}
+<!--        {% for i in paginator.page_range %}-->
+<!--            {% if page_obj.number == i %}-->
+<!--                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>-->
+<!--            {% else %}-->
+<!--                <li><a href="?page={{ i }}">{{ i }}</a></li>-->
+<!--            {% endif %}-->
+<!--        {% endfor %}-->
+          {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{page_obj.next_page_number}}" >Next</a>
+            {% else %}
+                <a class="disabled" href="?page={{page_obj.next_page_number}}" tabindex="-1" disabled aria-disabled="true">Next</a>
+        {% endif %}
+    {% endif %}
+    </nav>
   </div>
 
 <!--  <div class="b-example-divider"></div>-->
@@ -123,6 +141,17 @@
       <div class="col-md-3">
        <div class="container px-4 py-5">
          <h4 class="mt-5 text-center">Top 10 Movies</h4>
+           <ul class="list-group mb-3">
+               {% for top in object_list %}
+               <li class="list-group-item d-flex justify-content-between lh-sm">
+                   <div>
+                        <h6 class="my-0">{{ top.title }}</h6>
+                        <small class="text-muted">{{ top.plot }}</small>
+                   </div>
+                    <span class="text-muted">{{ top.run_time }}</span>
+               </li>
+               {% endfor %}
+           </ul>
        </div>
       </div>
   </div>

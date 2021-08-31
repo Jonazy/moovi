@@ -1,18 +1,39 @@
 {% extends 'base.html' %}
-<!--{% load cache %}-->
+{% load cache %}
 
-{% block title %} Top Movies {% endblock %}
+
+{% block title %} Top 10 Movies {% endblock %}
 
 {% block main %}
-    <h1>Top Movies</h1>
-<!--    {% cache 300 top10 %}-->
-    <ol>
-        {% for movie in object_list %}
-        <li>
-            <a href="{% url 'core:top_movies' pk=movie.id %}"> {{movie}}</a>
-        </li>
-        {% endfor %}
-    </ol>
-<!--{% endcache %}-->
-{% endblock %}
+<!--<div class="container">-->
+<!--    <div class="row text-center">-->
+<!--        <div class="col-sm-12">-->
+<!--            <h1>Top 10 Movies</h1>-->
+<!--            {% cache 300 top10 %}-->
+<!--            <ol>-->
+<!--                {% for movie in object_list %}-->
+<!--                    <li>-->
+<!--                        <a href="{% url 'core:movie_detail' movie.id %}"> {{ movie }} </a>-->
+<!--                    </li>-->
+<!--                {% endfor %}-->
+<!--            </ol>-->
+<!--            {% endcache %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
+<div class="container">
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <h1>Top 10 Movies</h1>
+            <ol>
+                {% for movie in top_movies %}
+                    <li>
+                        <a href="{% url 'core:movie_detail' movie.id %}"> {{ movie }} </a>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}

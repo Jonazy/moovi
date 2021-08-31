@@ -40,8 +40,8 @@
                     <h4>Score {{ object.score|default_if_none:"TBD" }}</h4>
                     {% if vote_form %}
                     <form method="post" action="{{ vote_form_url }}">
-                        {{ vote_form.as_p }}
                         {% csrf_token %}
+                        {{ vote_form.as_p }}
                         <button type="submit" class="btn btn-primary">Vote</button>
                     </form>
                     {% else %}

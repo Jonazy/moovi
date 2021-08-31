@@ -92,8 +92,8 @@ class Vote(models.Model):
     UP = 1
     DOWN = -1
     VALUE_CHOICES = (
-        ('UP', 'UP'),
-        ('UP', 'DOWN'),
+        (UP, 'UP',),
+        (DOWN, 'DOWN',),
     )
     value = models.SmallIntegerField(choices=VALUE_CHOICES)
     user = models.ForeignKey(to=CustomUser, related_name='user', on_delete=models.CASCADE)
