@@ -12,7 +12,7 @@
                 <a href="{% url 'core:movie_detail' role.movie.id %} ">{{ role.movie }}</a>:{{role.name}}
             {% endfor %}
 
-         <h2>Written of</h2>
+         <h2>Written</h2>
             {% for movie in object.writing_credits.all %}
                 <a href="{% url 'core:movie_detail' movie.id %} ">{{ movie }}</a>
             {% endfor %}

@@ -108,7 +108,6 @@ class UpdateVote(LoginRequiredMixin, UpdateView):
 class TopMovies(LoginRequiredMixin, ListView):
     template_name = 'core/top_movie_list.html'
     context_object_name = 'top_movies'
-    # queryset = Movie.objects.all()[:1]
     queryset = Movie.objects.top_movies
     # def get_queryset(self):
     #     limit = 10
